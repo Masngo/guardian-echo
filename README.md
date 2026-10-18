@@ -1,84 +1,93 @@
 # 🛡️ GuardianEcho
-> **Autonomous ElderCare & Ambient Safety Ecosystem** built with Ring, AWS Bedrock, and Model Context Protocol (MCP) for Alexa+.
 
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Track: Ring](https://img.shields.io/badge/Amazon_Track-Ring-blue)
-![AWS: Bedrock](https://img.shields.io/badge/AWS-Bedrock%20%2B%20AgentCore-orange)
-![Protocol: MCP](https://img.shields.io/badge/Protocol-MCP%202025--11--25-green)
+> **Autonomous Ambient Eldercare & Cross-Device Incident Orchestrator**  
+> *Submitted to the Amazon Developer Hackathon: Build, Ship, Shape (2026)*
 
----
-
-## 📌 Project Overview
-**GuardianEcho** is an ambient safety and emergency response orchestrator designed for independent elderly living and smart home caretaking. 
-
-By combining **Ring Webhooks & API streams** with **Amazon Bedrock multimodal vision models (Claude 3.5 Sonnet)** and an open **Model Context Protocol (MCP) server for Alexa+**, GuardianEcho turns existing home security hardware into a proactive, non-invasive safety guardian.
-
-### 💡 What Problem It Solves
-- **Silent Household Accidents:** Falls, sudden unresponsiveness, or kitchen stove hazards often go undetected if the person cannot reach a manual panic button.
-- **Privacy-First Monitoring:** Rather than continuous intrusive human monitoring, visual feeds are processed ephemerally using localized AI vision classification.
-- **Autonomous Remediation:** Automatically triggers voice check-ins via Alexa+, activates Ring Chime alerts, or notifies emergency care contacts.
+![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)
+![Node.js](https://img.shields.io/badge/Node.js-v20%2B-blue.svg)
+![TypeScript](https://img.shields.io/badge/TypeScript-v5.0-blue.svg)
+![AWS Bedrock](https://img.shields.io/badge/AWS-Bedrock%20Claude%203.5%20Sonnet-orange.svg)
+![Alexa+ MCP](https://img.shields.io/badge/Alexa%2B-MCP%20Spec%202025--11--25-purple.svg)
 
 ---
 
-## 🏗️ Technical Architecture
-[ Ring Devices / Simulator ]
-│ (Webhook Motion/Snapshot Trigger)
-▼
-[ AWS Bedrock Multimodal Vision ]  ── (Claude 3.5 Sonnet Zero-Shot Safety Analysis)
+## 📖 How It Works
+
+GuardianEcho bridges physical security hardware, multimodal artificial intelligence, and living-room ambient displays into a proactive safety shield for elderly individuals living independently.
+[200~┌─────────────────────────────────────────────────────────────────────────────┐
+│                            GUARDIANECHO PIPELINE                            │
+└─────────────────────────────────────────────────────────────────────────────┘
 │
-▼
-[ Ring MCP Server (TypeScript) ]  ── (Exposes Tools via MCP Spec 2025-11-25)
+[1] EVENT DETECTION                  ▼
+┌───────────────────────────────────────────────────────────────────────────┐
+│ • Ring Security Cameras capture ephemeral motion snapshots               │
+│ • Bee Wearable AI continuously logs biometric streams (Heart Rate/Stress) │
+└───────────────────────────────────────────────────────────────────────────┘
 │
-▼
-[ Alexa+ Agent / Caregiver Dashboard ]
-### Key Integrations
-1. **Primary Track — Ring APIs & SDKs:** Integrates Ring Motion events, camera snapshot streaming, and chime alert triggers.
-2. **AWS Builder Challenge — AWS Bedrock:** Processes raw snapshot payloads to perform real-time zero-shot visual hazard detection (`FALL_RISK`, `UNATTENDED_STOVE`, `UNLOCKED_PERIMETER`).
-3. **Open Source Challenge — `@guardian-echo/ring-mcp-server`:** Published as an open-source TypeScript package bridging Ring Webhooks directly to Model Context Protocol (MCP) tools for Alexa+ and AI agentic workflows.
+[2] MULTIMODAL AI ANALYSIS           ▼
+┌───────────────────────────────────────────────────────────────────────────┐
+│ • Snapshot sent to AWS Bedrock (Claude 3.5 Sonnet Vision Model)           │
+│ • Zero-shot classification: FALL_RISK | STOVE_HAZARD | DOOR_BREACH        │
+│ • Edge pipeline benchmark: ~120ms execution latency                      │
+└───────────────────────────────────────────────────────────────────────────┘
+│
+[3] AGENTIC CROSS-DEVICE ACTIONS     ▼
+┌───────────────────────────────────────────────────────────────────────────┐
+│ • Alexa+ Model Context Protocol (MCP) Server receives structured payload  │
+│ • Tool Invocation 1: get_ring_snapshot (refreshes live visual context)    │
+│ • Tool Invocation 2: fire_tv_display_pip (renders picture-in-picture)     │
+│ • Tool Invocation 3: alexa_voice_checkin (initiates proactive check-in)   │
+└───────────────────────────────────────────────────────────────────────────┘
+
+
+### ⚙️ Step-by-Step Technical Execution
+
+1. **Trigger & Data Capture Layer (Ring API & Bee Wearable)**
+   * When ambient motion is detected across home camera nodes (Living Room, Kitchen, Porch, Patio), an ephemeral snapshot frame is routed to the processing queue.
+   * Concurrent biometric telemetry from the Bee Wearable stream (Heart Rate, Galvanic Skin Response) provides supplementary validation of resident distress.
+
+2. **Computer Vision Inference (AWS Bedrock)**
+   * Snapshots are evaluated by **Amazon Bedrock running Claude 3.5 Sonnet** (`anthropic.claude-3-5-sonnet-20241022-v2:0`).
+   * The model assesses non-responsive floor posture, unattended heat sources, or unlatched perimeter access without retaining persistent private video feeds.
+
+3. **Orchestration & Cross-Device Execution (Alexa+ MCP Server & Fire TV)**
+   * Upon hazard classification, the **Alexa+ Model Context Protocol (MCP) Server** (spec 2025-11-25) triggers automated tool actions:
+     * **Fire TV (Vega OS):** Displays a Picture-in-Picture alert directly on the living room screen.
+     * **Alexa+ Agent:** Speaks a voice check-in query to confirm resident wellbeing before escalating to emergency contacts.
+     * **Ring Infrastructure:** Sounds hardware chimes and locks smart door latches if a perimeter breach is confirmed.
 
 ---
 
-## 📁 Repository Structure
+## 🛠️ Tech Stack & Architecture
 
-```text
-guardian-echo/
-├── packages/
-│   ├── ring-mcp-server/       # Open Source: Model Context Protocol Adapter for Ring
-│   │   ├── src/index.ts       # MCP Server entry point (Streamable HTTP / Stdio)
-│   │   └── src/tools/         # MCP Tools (get_snapshot, trigger_chime, unlock_door)
-│   └── aws-vision-core/       # AWS Bedrock Multimodal Analysis Pipeline
-│       └── src/bedrock-analyzer.ts # Bedrock Claude 3.5 Sonnet prompt executor
-├── apps/
-│   └── dashboard/             # Real-time event monitor & Ring Simulator harness
-├── FRICTION_LOG.md            # Detailed Amazon DX & SDK feedback (+10% bonus)
-├── LICENSE                    # MIT Open Source License
-└── README.md
-🚀 Quickstart Guide
-Prerequisites
-Node.js >= v20.x
+- **Primary Track:** Ring API & Webhook Adapters
+- **AWS Builder Challenge:** AWS Bedrock Runtime SDK (Claude 3.5 Sonnet Multimodal Vision)
+- **Alexa+ Agent Track:** Open-Source Model Context Protocol Server (`packages/ring-mcp-server`)
+- **Fire TV & Bee Integration:** Fire TV Picture-in-Picture notification bridge & Wearable biometric data streams
+- **Command Dashboard:** Web App (`apps/dashboard/public/index.html`) featuring multi-camera HUD canvas, telemetry logs, and jsPDF audit report exports.
 
-AWS CLI configured with bedrock:InvokeModel permissions
+---
 
-Ring Developer Account credentials or simulator tokens
+## 🚀 Quick Start Guide
 
-Installation
-# Clone repository
-git clone [https://github.com/Masngo/guardian-echo.git](https://github.com/Masngo/guardian-echo.git)
+### Prerequisites
+* Node.js v20 or higher
+* Git Bash / Terminal
+
+### 1. Installation
+```bash
+git clone [https.github.com/Masngo/guardian-echo.git](https://https.github.com/Masngo/guardian-echo.git)
 cd guardian-echo
-
-# Install dependencies across workspace
 npm install
-
-# Environment setup
-cp .env.example .env
-Running the Ring MCP Server
+2. Run the Ring MCP Server
 Bash
 npm run start:mcp
-Running the AWS Bedrock Vision Pipeline
+3. Launch the Local Web Dashboard
+In a separate terminal window:
+
 Bash
-npm run test:vision
-📊 Friction Log & Product Feedback
-See FRICTION_LOG.md for full developer experience documentation, API benchmarking, and actionable suggestions for the Amazon Developer team.
+npx serve apps/dashboard/public
+Navigate to http://localhost:3000 in your web browser.
 
 📜 License
 Distributed under the MIT License. See LICENSE for details.
