@@ -3,30 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GuardianEcho | Command Center v2.0</title>
+    <title>GuardianEcho | Amazon Ecosystem Command Center</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- jsPDF for PDF Exports -->
+    <!-- jsPDF for Audit Report Exports -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        ring: {
-                            blue: '#00A3DA',
-                            dark: '#08121E',
-                            accent: '#102235',
-                            card: '#0D1B2A'
-                        },
-                        aws: {
+                        amazon: {
+                            dark: '#131A22',
+                            card: '#1F2937',
                             orange: '#FF9900',
-                            dark: '#1C2836'
-                        }
+                            blue: '#00A3DA'
+                        },
+                        ring: { blue: '#00A3DA' }
                     }
                 }
             }
@@ -38,8 +35,8 @@
                 to bottom,
                 rgba(255,255,255,0),
                 rgba(255,255,255,0) 50%,
-                rgba(0, 163, 218, 0.12) 50%,
-                rgba(0, 163, 218, 0.12)
+                rgba(0, 163, 218, 0.1) 50%,
+                rgba(0, 163, 218, 0.1)
             );
             background-size: 100% 4px;
         }
@@ -47,64 +44,37 @@
             background-image: radial-gradient(rgba(0, 163, 218, 0.15) 1px, transparent 0);
             background-size: 18px 18px;
         }
-        @keyframes pulse-red {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.98); }
-        }
-        .alert-flash {
-            animation: pulse-red 1s infinite;
-        }
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #08121E;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #102235;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #00A3DA;
-        }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: #131A22; }
+        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FF9900; }
     </style>
 </head>
-<body class="bg-ring-dark text-slate-100 font-sans min-h-screen flex flex-col antialiased select-none">
+<body class="bg-amazon-dark text-slate-100 font-sans min-h-screen flex flex-col antialiased">
 
-    <!-- Top Command Navigation Bar -->
-    <header class="bg-ring-card border-b border-slate-800 px-6 py-3 sticky top-0 z-50 flex flex-wrap justify-between items-center shadow-2xl">
+    <!-- Top Hackathon Navigation Header -->
+    <header class="bg-amazon-card border-b border-slate-800 px-6 py-3 sticky top-0 z-50 flex flex-wrap justify-between items-center shadow-2xl">
         <div class="flex items-center space-x-3">
-            <div class="bg-ring-blue text-slate-950 p-2.5 rounded-lg shadow-lg font-black text-xl flex items-center justify-center">
-                <i class="fa-solid fa-shield-heart"></i>
+            <div class="bg-amazon-orange text-slate-950 p-2.5 rounded-xl font-black text-xl flex items-center justify-center shadow-lg">
+                <i class="fa-solid fa-cube"></i>
             </div>
             <div>
-                <h1 class="text-xl font-black tracking-wider flex items-center gap-2 uppercase text-slate-100">
-                    GuardianEcho
-                    <span class="text-[10px] bg-ring-blue/20 text-ring-blue px-2 py-0.5 rounded border border-ring-blue/40 font-mono tracking-normal">COMMAND CENTER v2.0</span>
+                <h1 class="text-lg font-black tracking-wider flex items-center gap-2 uppercase">
+                    GuardianEcho <span class="text-xs bg-amazon-orange/20 text-amazon-orange px-2 py-0.5 rounded border border-amazon-orange/40 font-mono">Amazon Ecosystem Hub</span>
                 </h1>
-                <p class="text-xs text-slate-400">Autonomous Ambient Eldercare &amp; Incident Orchestrator</p>
+                <p class="text-xs text-slate-400">Fire TV + Alexa+ MCP + Ring + Bee Wearable Orchestrator</p>
             </div>
         </div>
 
-        <!-- Telemetry & Mode Toggles -->
-        <div class="flex items-center space-x-3 text-xs font-mono mt-2 sm:mt-0">
-            <div class="flex items-center space-x-2 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                <span class="text-slate-300">Ring API</span>
-            </div>
-            <div class="flex items-center space-x-2 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800">
-                <i class="fa-brands fa-aws text-aws-orange"></i>
-                <span class="text-slate-300">Bedrock (Claude 3.5)</span>
-            </div>
-            <div class="flex items-center space-x-2 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800">
-                <i class="fa-solid fa-bolt text-purple-400"></i>
-                <span class="text-slate-300">Alexa+ MCP</span>
-            </div>
+        <!-- Ecosystem Track Status Badges -->
+        <div class="flex items-center space-x-2 text-xs font-mono mt-2 sm:mt-0 flex-wrap gap-y-2">
+            <span class="bg-slate-900 px-2.5 py-1 rounded-md border border-slate-800 text-ring-blue"><i class="fa-solid fa-tv"></i> Fire TV (Vega OS)</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded-md border border-slate-800 text-purple-400"><i class="fa-solid fa-microchip"></i> Alexa+ MCP (2025-11-25)</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded-md border border-slate-800 text-emerald-400"><i class="fa-solid fa-bell"></i> Ring API</span>
+            <span class="bg-slate-900 px-2.5 py-1 rounded-md border border-slate-800 text-pink-400"><i class="fa-solid fa-clock-rotate-left"></i> Bee Wearable AI</span>
             
-            <!-- PDF Export Button -->
-            <button onclick="exportPDFReport()" class="bg-ring-blue/20 hover:bg-ring-blue/30 text-ring-blue border border-ring-blue/40 px-3 py-1.5 rounded-lg font-sans font-semibold transition flex items-center gap-1.5">
-                <i class="fa-solid fa-file-pdf"></i> Export Audit
+            <button onclick="exportPDFReport()" class="bg-amazon-orange hover:bg-amazon-orange/90 text-slate-950 font-bold px-3 py-1 rounded-md transition flex items-center gap-1.5 shadow">
+                <i class="fa-solid fa-file-pdf"></i> Export Hackathon Audit
             </button>
         </div>
     </header>
@@ -112,156 +82,153 @@
     <!-- Main Workspace Dashboard Grid -->
     <main class="flex-1 p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 max-w-[1920px] w-full mx-auto">
         
-        <!-- Left Panel: Multi-Mode HUD Canvas & CAD Map (7 Cols) -->
+        <!-- Left Column: Multi-Device Simulation Canvas (7 Cols) -->
         <section class="lg:col-span-7 flex flex-col space-y-6">
             
-            <!-- Video Canvas Module -->
-            <div class="bg-ring-card rounded-2xl p-4 border border-slate-800 shadow-2xl flex flex-col relative overflow-hidden">
+            <!-- Cross-Device Simulator Screen -->
+            <div class="bg-amazon-card rounded-2xl p-4 border border-slate-800 shadow-2xl flex flex-col relative overflow-hidden">
                 <div class="flex flex-wrap justify-between items-center mb-3 gap-2">
                     <h2 class="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2">
-                        <i class="fa-solid fa-camera-rotate text-ring-blue"></i> Live Ambient Video Node
+                        <i class="fa-solid fa-display text-amazon-orange"></i> Multi-Device Render Window
                     </h2>
                     
-                    <!-- Vision Filter Mode Buttons -->
-                    <div class="flex items-center space-x-1 bg-slate-900/80 p-1 rounded-lg border border-slate-800 font-mono text-[11px]">
-                        <button onclick="setFilter('RGB')" id="filter-btn-RGB" class="filter-btn px-2.5 py-1 rounded bg-ring-blue text-slate-950 font-bold">RGB</button>
-                        <button onclick="setFilter('THERMAL')" id="filter-btn-THERMAL" class="filter-btn px-2.5 py-1 rounded text-slate-400 hover:text-slate-200">THERMAL</button>
-                        <button onclick="setFilter('NIGHT_VISION')" id="filter-btn-NIGHT_VISION" class="filter-btn px-2.5 py-1 rounded text-slate-400 hover:text-slate-200">NIGHT VIS</button>
+                    <!-- Target Device View Selector -->
+                    <div class="flex items-center space-x-1 bg-slate-900 p-1 rounded-lg border border-slate-800 font-mono text-[11px]">
+                        <button onclick="setDeviceView('RING')" id="dev-btn-RING" class="dev-btn px-3 py-1 rounded bg-amazon-orange text-slate-950 font-bold">Ring Camera</button>
+                        <button onclick="setDeviceView('FIRETV')" id="dev-btn-FIRETV" class="dev-btn px-3 py-1 rounded text-slate-400 hover:text-slate-200">Fire TV PiP</button>
+                        <button onclick="setDeviceView('BEE')" id="dev-btn-BEE" class="dev-btn px-3 py-1 rounded text-slate-400 hover:text-slate-200">Bee Wearable</button>
                     </div>
                 </div>
 
-                <!-- HUD Render Canvas -->
-                <div class="relative bg-slate-950 rounded-xl overflow-hidden border border-slate-800 aspect-video flex items-center justify-center hud-grid group">
-                    <canvas id="camera-canvas" class="w-full h-full object-cover"></canvas>
-                    <div id="scanline-overlay" class="absolute inset-0 scanline pointer-events-none"></div>
+                <!-- Canvas Display Container -->
+                <div class="relative bg-slate-950 rounded-xl overflow-hidden border border-slate-800 aspect-video flex items-center justify-center hud-grid">
+                    <canvas id="device-canvas" class="w-full h-full object-cover"></canvas>
+                    <div class="absolute inset-0 scanline pointer-events-none"></div>
 
-                    <!-- HUD Text Elements -->
+                    <!-- Overlay Badges -->
                     <div class="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-lg text-xs font-mono border border-slate-700 flex items-center gap-2 shadow">
-                        <i class="fa-solid fa-location-crosshairs text-ring-blue"></i>
-                        <span id="active-zone-label" class="text-slate-200">Living Room Cam (Node #01)</span>
+                        <i class="fa-solid fa-satellite-dish text-amazon-orange"></i>
+                        <span id="canvas-node-label" class="text-slate-200">Ring Security Stream: Living Room</span>
                     </div>
 
-                    <div id="recording-badge" class="absolute top-3 right-3 bg-red-950/80 border border-red-500/50 text-red-400 px-3 py-1 rounded-lg text-xs font-mono flex items-center gap-2 shadow">
-                        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span> REC 4K
+                    <div class="absolute top-3 right-3 bg-red-950/80 border border-red-500/50 text-red-400 px-3 py-1 rounded-lg text-xs font-mono flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span> LIVE SYNC
                     </div>
 
-                    <!-- Dynamic Bounding Box Visualizer -->
-                    <div id="target-bounding-box" class="absolute hidden border-2 border-red-500 bg-red-500/10 rounded-lg transition-all duration-300 pointer-events-none flex items-start justify-end p-1">
-                        <span id="target-label" class="bg-red-600 text-white text-[10px] font-mono font-bold px-2 py-0.5 rounded shadow">HAZARD</span>
-                    </div>
-
-                    <!-- Camera Zone Selection Tabs -->
-                    <div class="absolute bottom-3 left-3 right-3 flex justify-center space-x-2 bg-slate-900/90 backdrop-blur-md p-1.5 rounded-xl border border-slate-800 shadow-xl">
-                        <button onclick="switchZone('living_room')" id="zone-btn-living_room" class="zone-btn px-3 py-1 rounded-lg text-xs font-semibold transition-all bg-ring-blue text-slate-950 shadow">Living Room</button>
-                        <button onclick="switchZone('kitchen')" id="zone-btn-kitchen" class="zone-btn px-3 py-1 rounded-lg text-xs font-semibold transition-all text-slate-400 hover:text-slate-200">Kitchen</button>
-                        <button onclick="switchZone('porch')" id="zone-btn-porch" class="zone-btn px-3 py-1 rounded-lg text-xs font-semibold transition-all text-slate-400 hover:text-slate-200">Front Porch</button>
-                        <button onclick="switchZone('patio')" id="zone-btn-patio" class="zone-btn px-3 py-1 rounded-lg text-xs font-semibold transition-all text-slate-400 hover:text-slate-200">Back Patio</button>
+                    <!-- Bounding Box Indicator -->
+                    <div id="ai-bounding-box" class="absolute hidden border-2 border-red-500 bg-red-500/10 rounded-lg transition-all duration-300 pointer-events-none flex items-start justify-end p-1">
+                        <span id="ai-box-label" class="bg-red-600 text-white text-[10px] font-mono font-bold px-2 py-0.5 rounded shadow">HAZARD DETECTED</span>
                     </div>
                 </div>
 
-                <!-- Simulation Trigger Control Deck -->
-                <div class="mt-4 pt-3 border-t border-slate-800/80">
+                <!-- Hackathon Incident Trigger Deck -->
+                <div class="mt-4 pt-3 border-t border-slate-800">
                     <p class="text-[11px] text-slate-400 mb-2 font-mono flex items-center gap-1.5 uppercase tracking-wider">
-                        <i class="fa-solid fa-bolt text-aws-orange"></i> Incident Simulation Triggers:
+                        <i class="fa-solid fa-bolt text-amazon-orange"></i> Trigger Cross-Device Workflows:
                     </p>
-                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-2">
-                        <button onclick="triggerIncident('FALL_RISK')" class="px-2.5 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5">
-                            <i class="fa-solid fa-person-falling"></i> Fall Detected
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        <button onclick="runWorkflow('FALL')" class="px-3 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-person-falling"></i> Fall Emergency
                         </button>
-                        <button onclick="triggerIncident('UNATTENDED_STOVE')" class="px-2.5 py-2 bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 border border-orange-500/30 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5">
-                            <i class="fa-solid fa-fire-burner"></i> Stove Hazard
+                        <button onclick="runWorkflow('STOVE')" class="px-3 py-2.5 bg-orange-500/10 hover:bg-orange-500/20 text-orange-400 border border-orange-500/30 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-fire-burner"></i> Kitchen Stove
                         </button>
-                        <button onclick="triggerIncident('UNLOCKED_PERIMETER')" class="px-2.5 py-2 bg-yellow-500/10 hover:bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5">
+                        <button onclick="runWorkflow('DOOR')" class="px-3 py-2.5 bg-yellow-500/10 hover:bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-2">
                             <i class="fa-solid fa-door-open"></i> Door Breach
                         </button>
-                        <button onclick="triggerIncident('VITALS_DISTRESS')" class="px-2.5 py-2 bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 border border-purple-500/30 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5">
-                            <i class="fa-solid fa-heart-pulse"></i> Vitals Anomaly
-                        </button>
-                        <button onclick="triggerIncident('NONE')" class="px-2.5 py-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5">
-                            <i class="fa-solid fa-check"></i> Normal Sweep
+                        <button onclick="runWorkflow('CLEAR')" class="px-3 py-2.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-check-double"></i> Normal Routine
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Interactive 2D Smart CAD Floor Plan Map -->
-            <div class="bg-ring-card rounded-2xl p-4 border border-slate-800 shadow-2xl flex flex-col">
+            <!-- Bee Wearable Biometric & Productivity Stream -->
+            <div class="bg-amazon-card rounded-2xl p-4 border border-slate-800 shadow-2xl flex flex-col">
                 <div class="flex justify-between items-center mb-3">
                     <h2 class="text-xs font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2">
-                        <i class="fa-solid fa-map text-ring-blue"></i> 2D Smart Cad Floor Plan
+                        <i class="fa-solid fa-clock-rotate-left text-pink-400"></i> Bee Wearable Telemetry (Live Stream)
                     </h2>
-                    <span class="text-[10px] font-mono text-slate-500">Live Beacon Tracker</span>
+                    <span class="text-[10px] font-mono text-pink-400 bg-pink-500/10 px-2 py-0.5 rounded border border-pink-500/30">CLI &amp; MCP Bridge</span>
                 </div>
-                <div class="bg-slate-950 rounded-xl border border-slate-800 p-2 relative aspect-[21/9] overflow-hidden flex items-center justify-center hud-grid">
-                    <canvas id="cad-map-canvas" class="w-full h-full"></canvas>
+                <div class="grid grid-cols-3 gap-3 font-mono">
+                    <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-center">
+                        <p class="text-[10px] text-slate-400">HEART RATE</p>
+                        <p id="bee-hr" class="text-lg font-bold text-pink-400">72 BPM</p>
+                    </div>
+                    <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-center">
+                        <p class="text-[10px] text-slate-400">GALVANIC STRESS</p>
+                        <p id="bee-stress" class="text-lg font-bold text-emerald-400">Normal</p>
+                    </div>
+                    <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 text-center">
+                        <p class="text-[10px] text-slate-400">PROMPT TOKENS</p>
+                        <p class="text-lg font-bold text-amazon-orange">1,240</p>
+                    </div>
                 </div>
             </div>
 
         </section>
 
-        <!-- Right Panel: AWS Bedrock & Alexa+ Agent Console (5 Cols) -->
+        <!-- Right Column: AWS Bedrock & Alexa+ MCP Console (5 Cols) -->
         <section class="lg:col-span-5 flex flex-col space-y-6">
 
-            <!-- AWS Bedrock Vision Telemetry Inspector -->
-            <div class="bg-ring-card rounded-2xl p-4 border border-slate-800 shadow-2xl flex flex-col">
+            <!-- AWS Bedrock Multimodal Vision Panel -->
+            <div class="bg-amazon-card rounded-2xl p-4 border border-slate-800 shadow-2xl flex flex-col">
                 <div class="flex justify-between items-center mb-3">
-                    <h2 class="text-xs font-bold uppercase tracking-widest text-aws-orange flex items-center gap-2">
-                        <i class="fa-brands fa-aws"></i> AWS Bedrock Telemetry
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-amazon-orange flex items-center gap-2">
+                        <i class="fa-brands fa-aws"></i> AWS Bedrock Analysis Console
                     </h2>
-                    <span class="text-[10px] font-mono bg-aws-orange/10 text-aws-orange px-2 py-0.5 rounded border border-aws-orange/30">Claude 3.5 Sonnet</span>
+                    <span class="text-[10px] font-mono bg-amazon-orange/10 text-amazon-orange px-2 py-0.5 rounded border border-amazon-orange/30">Claude 3.5 Sonnet</span>
                 </div>
 
-                <!-- Detection Summary Card -->
-                <div id="bedrock-status-card" class="bg-slate-900 rounded-xl p-3 border border-slate-800 mb-3 transition-all duration-300">
+                <div class="bg-slate-900 rounded-xl p-3 border border-slate-800 mb-3">
                     <div class="flex justify-between items-center mb-1">
-                        <span class="text-xs text-slate-400 font-mono">Classification:</span>
-                        <span id="bedrock-hazard-type" class="text-xs font-black text-emerald-400 font-mono tracking-wider">NONE</span>
+                        <span class="text-xs text-slate-400 font-mono">Classification Result:</span>
+                        <span id="bedrock-hazard" class="text-xs font-black text-emerald-400 font-mono">NONE</span>
                     </div>
                     <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden mb-2">
-                        <div id="confidence-bar" class="bg-emerald-500 h-full transition-all duration-500 w-[12%]"></div>
+                        <div id="bedrock-bar" class="bg-emerald-500 h-full w-[10%] transition-all"></div>
                     </div>
                     <div class="flex justify-between text-[11px] text-slate-400 font-mono">
-                        <span>Confidence: <strong id="confidence-score" class="text-slate-200">98.4%</strong></span>
-                        <span>Latency: <strong id="bedrock-latency" class="text-slate-200">142ms</strong></span>
+                        <span>Confidence: <strong id="bedrock-conf" class="text-slate-200">99.1%</strong></span>
+                        <span>Latency: <strong id="bedrock-time" class="text-slate-200">128ms</strong></span>
                     </div>
                 </div>
 
-                <!-- Raw JSON Telemetry Output -->
-                <div class="bg-slate-950 rounded-xl p-3 border border-slate-800 font-mono text-[11px] text-emerald-400 overflow-x-auto max-h-[150px]">
-                    <pre id="bedrock-json-out">// Awaiting trigger execution...</pre>
+                <div class="bg-slate-950 rounded-xl p-3 border border-slate-800 font-mono text-[11px] text-emerald-400 overflow-x-auto max-h-[130px]">
+                    <pre id="bedrock-json">// Awaiting cross-device incident trigger...</pre>
                 </div>
             </div>
 
             <!-- Alexa+ Model Context Protocol (MCP) Terminal -->
-            <div class="bg-ring-card rounded-2xl p-4 border border-slate-800 shadow-2xl flex-1 flex flex-col">
+            <div class="bg-amazon-card rounded-2xl p-4 border border-slate-800 shadow-2xl flex-1 flex flex-col">
                 <div class="flex justify-between items-center mb-3">
                     <h2 class="text-xs font-bold uppercase tracking-widest text-purple-400 flex items-center gap-2">
-                        <i class="fa-solid fa-terminal"></i> Alexa+ MCP Agent Terminal
+                        <i class="fa-solid fa-network-wired"></i> Alexa+ MCP Server Terminal
                     </h2>
-                    <span class="text-[10px] font-mono bg-purple-500/10 text-purple-300 px-2 py-0.5 rounded border border-purple-500/30">Spec 2025-11-25</span>
+                    <span class="text-[10px] font-mono bg-purple-500/10 text-purple-300 px-2 py-0.5 rounded border border-purple-500/30">Streamable HTTP</span>
                 </div>
 
-                <!-- Terminal Step Logs -->
-                <div id="mcp-terminal-logs" class="bg-slate-950 rounded-xl p-3 border border-slate-800 font-mono text-xs space-y-2 overflow-y-auto max-h-[200px] flex-1">
-                    <div class="text-slate-500">// MCP Server active on stdio. Listening for tool calls...</div>
+                <div id="mcp-logs" class="bg-slate-950 rounded-xl p-3 border border-slate-800 font-mono text-xs space-y-2 overflow-y-auto max-h-[180px] flex-1">
+                    <div class="text-slate-500">// MCP Server spec 2025-11-25 active. Ready for tool execution...</div>
                 </div>
 
-                <!-- Voice Output Module -->
+                <!-- Alexa+ Voice Synthesis Box -->
                 <div class="mt-3 bg-purple-950/30 border border-purple-500/30 rounded-xl p-3 flex items-start gap-3">
                     <div class="text-purple-400 text-lg mt-0.5"><i class="fa-solid fa-microphone-lines"></i></div>
                     <div class="flex-1">
-                        <p class="text-[10px] text-purple-300 font-mono uppercase tracking-wider font-bold">Alexa+ Voice Synthesis Output:</p>
-                        <p id="alexa-speech-text" class="text-xs text-slate-200 italic mt-0.5">"All household safety sweeps operating normally."</p>
+                        <p class="text-[10px] text-purple-300 font-mono uppercase tracking-wider font-bold">Alexa+ Voice Output (Living Room &amp; Fire TV):</p>
+                        <p id="alexa-speech" class="text-xs text-slate-200 italic mt-0.5">"All systems operational across Ring and Fire TV."</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Real-Time Metrics Latency Chart -->
-            <div class="bg-ring-card rounded-2xl p-4 border border-slate-800 shadow-2xl">
+            <!-- Live Latency Chart -->
+            <div class="bg-amazon-card rounded-2xl p-4 border border-slate-800 shadow-2xl">
                 <h2 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2 flex items-center gap-2">
-                    <i class="fa-solid fa-chart-line text-ring-blue"></i> Edge Pipeline Latency (ms)
+                    <i class="fa-solid fa-chart-line text-amazon-orange"></i> Multi-Device Agent Latency (ms)
                 </h2>
-                <div class="h-[90px]">
+                <div class="h-[80px]">
                     <canvas id="latency-chart"></canvas>
                 </div>
             </div>
@@ -271,55 +238,36 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-ring-card border-t border-slate-800 px-6 py-3 text-xs text-slate-500 flex flex-wrap justify-between items-center">
+    <footer class="bg-amazon-card border-t border-slate-800 px-6 py-3 text-xs text-slate-500 flex flex-wrap justify-between items-center">
         <div>
             <span>GuardianEcho &copy; 2026</span>
             <span class="mx-2">•</span>
-            <a href="https://github.com/Masngo/guardian-echo" target="_blank" class="text-ring-blue hover:underline"><i class="fa-brands fa-github"></i> Masngo/guardian-echo</a>
+            <a href="https://github.com/Masngo/guardian-echo" target="_blank" class="text-amazon-orange hover:underline"><i class="fa-brands fa-github"></i> Masngo/guardian-echo</a>
         </div>
         <div>
-            <span>Built for Amazon Developer Hackathon (Fire TV, Alexa+, Ring, Bee)</span>
+            <span>Build, Ship, Shape: Amazon Developer Hackathon Submission</span>
         </div>
     </footer>
 
-    <!-- Interactive Next-Gen JavaScript Controller -->
+    <!-- Script Engine -->
     <script>
-        // State & Settings
-        let currentZone = 'living_room';
-        let currentFilter = 'RGB';
+        let currentDevice = 'RING';
         let latencyChart;
-        let lastIncidentReport = null;
+        let lastReport = null;
 
-        const zones = {
-            living_room: { name: 'Living Room Cam (Node #01)', color: '#00A3DA', cadPos: { x: 0.3, y: 0.5 } },
-            kitchen: { name: 'Kitchen Cam (Node #02)', color: '#FF9900', cadPos: { x: 0.7, y: 0.3 } },
-            porch: { name: 'Front Porch Cam (Node #03)', color: '#10B981', cadPos: { x: 0.2, y: 0.8 } },
-            patio: { name: 'Back Patio Cam (Node #04)', color: '#8B5CF6', cadPos: { x: 0.8, y: 0.8 } }
-        };
-
-        // Main Video Canvas Setup
-        const canvas = document.getElementById('camera-canvas');
+        const canvas = document.getElementById('device-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = 640;
         canvas.height = 360;
 
         let frame = 0;
-        function renderVideoCanvas() {
+        function renderCanvas() {
             frame++;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Background Fill based on Filter Mode
-            if (currentFilter === 'RGB') {
-                ctx.fillStyle = '#050B14';
-            } else if (currentFilter === 'THERMAL') {
-                ctx.fillStyle = '#110022';
-            } else if (currentFilter === 'NIGHT_VISION') {
-                ctx.fillStyle = '#001A0A';
-            }
+            ctx.fillStyle = currentDevice === 'FIRETV' ? '#0F172A' : '#080F18';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Draw Mesh HUD Lines
-            ctx.strokeStyle = currentFilter === 'NIGHT_VISION' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(0, 163, 218, 0.08)';
+            // Draw grid lines
+            ctx.strokeStyle = 'rgba(255, 153, 0, 0.08)';
             ctx.lineWidth = 1;
             for (let x = 0; x < canvas.width; x += 40) {
                 ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
@@ -328,285 +276,185 @@
                 ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
             }
 
-            // Draw Animated Node Particle
-            const pulseRadius = 70 + Math.sin(frame * 0.04) * 15;
-            const px = canvas.width / 2 + Math.sin(frame * 0.02) * 40;
-            const py = canvas.height / 2 + Math.cos(frame * 0.02) * 25;
-
-            if (currentFilter === 'THERMAL') {
-                const grad = ctx.createRadialGradient(px, py, 5, px, py, pulseRadius);
-                grad.addColorStop(0, 'rgba(255, 0, 0, 0.8)');
-                grad.addColorStop(0.5, 'rgba(255, 153, 0, 0.5)');
-                grad.addColorStop(1, 'transparent');
-                ctx.fillStyle = grad;
-            } else if (currentFilter === 'NIGHT_VISION') {
-                const grad = ctx.createRadialGradient(px, py, 5, px, py, pulseRadius);
-                grad.addColorStop(0, 'rgba(16, 185, 129, 0.8)');
-                grad.addColorStop(1, 'transparent');
-                ctx.fillStyle = grad;
-            } else {
-                const grad = ctx.createRadialGradient(px, py, 5, px, py, pulseRadius);
-                grad.addColorStop(0, 'rgba(0, 163, 218, 0.6)');
-                grad.addColorStop(1, 'transparent');
-                ctx.fillStyle = grad;
-            }
-
+            // Draw animated pulse node
+            const px = canvas.width / 2 + Math.sin(frame * 0.03) * 50;
+            const py = canvas.height / 2 + Math.cos(frame * 0.03) * 30;
+            const grad = ctx.createRadialGradient(px, py, 5, px, py, 80);
+            grad.addColorStop(0, currentDevice === 'FIRETV' ? 'rgba(0, 163, 218, 0.7)' : 'rgba(255, 153, 0, 0.7)');
+            grad.addColorStop(1, 'transparent');
+            ctx.fillStyle = grad;
             ctx.beginPath();
-            ctx.arc(px, py, pulseRadius, 0, Math.PI * 2);
+            ctx.arc(px, py, 80, 0, Math.PI * 2);
             ctx.fill();
 
-            // Overlay Telemetry Text
-            ctx.fillStyle = currentFilter === 'NIGHT_VISION' ? 'rgba(16, 185, 129, 0.6)' : 'rgba(255, 255, 255, 0.5)';
+            // Overlay mode text
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
             ctx.font = '11px monospace';
-            ctx.fillText(`FILTER_MODE: ${currentFilter}`, 20, canvas.height - 20);
-            ctx.fillText(new Date().toISOString(), canvas.width - 240, 25);
+            ctx.fillText(`DEVICE_MODE: ${currentDevice} | CLOUD_SYNC: ACTIVE`, 20, canvas.height - 20);
 
-            requestAnimationFrame(renderVideoCanvas);
+            requestAnimationFrame(renderCanvas);
         }
-        renderVideoCanvas();
+        renderCanvas();
 
-        // 2D CAD Floor Plan Canvas Rendering
-        const cadCanvas = document.getElementById('cad-map-canvas');
-        const cadCtx = cadCanvas.getContext('2d');
-        cadCanvas.width = 600;
-        cadCanvas.height = 250;
-
-        function renderCadMap() {
-            cadCtx.fillStyle = '#050B14';
-            cadCtx.fillRect(0, 0, cadCanvas.width, cadCanvas.height);
-
-            // Draw Floor Plan Walls
-            cadCtx.strokeStyle = 'rgba(0, 163, 218, 0.3)';
-            cadCtx.lineWidth = 2;
-            cadCtx.strokeRect(20, 20, cadCanvas.width - 40, cadCanvas.height - 40);
-
-            // Interior Partitions
-            cadCtx.beginPath();
-            cadCtx.moveTo(cadCanvas.width * 0.5, 20);
-            cadCtx.lineTo(cadCanvas.width * 0.5, cadCanvas.height - 20);
-            cadCtx.moveTo(20, cadCanvas.height * 0.5);
-            cadCtx.lineTo(cadCanvas.width - 20, cadCanvas.height * 0.5);
-            cadCtx.stroke();
-
-            // Room Labels
-            cadCtx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-            cadCtx.font = '10px monospace';
-            cadCtx.fillText('LIVING ROOM', 30, 40);
-            cadCtx.fillText('KITCHEN', cadCanvas.width * 0.5 + 10, 40);
-            cadCtx.fillText('FRONT PORCH', 30, cadCanvas.height * 0.5 + 20);
-            cadCtx.fillText('BACK PATIO', cadCanvas.width * 0.5 + 10, cadCanvas.height * 0.5 + 20);
-
-            // Render Active Beacon Node
-            const pos = zones[currentZone].cadPos;
-            const bx = pos.x * cadCanvas.width;
-            const by = pos.y * cadCanvas.height;
-
-            cadCtx.fillStyle = zones[currentZone].color;
-            cadCtx.beginPath();
-            cadCtx.arc(bx, by, 6, 0, Math.PI * 2);
-            cadCtx.fill();
-
-            // Ripple Effect
-            cadCtx.strokeStyle = zones[currentZone].color;
-            cadCtx.lineWidth = 1;
-            cadCtx.beginPath();
-            cadCtx.arc(bx, by, 12 + (frame % 30) / 2, 0, Math.PI * 2);
-            cadCtx.stroke();
-
-            requestAnimationFrame(renderCadMap);
-        }
-        renderCadMap();
-
-        // Mode Toggles
-        function setFilter(filterMode) {
-            currentFilter = filterMode;
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.className = 'filter-btn px-2.5 py-1 rounded text-slate-400 hover:text-slate-200';
-            });
-            document.getElementById(`filter-btn-${filterMode}`).className = 'filter-btn px-2.5 py-1 rounded bg-ring-blue text-slate-950 font-bold';
+        function setDeviceView(dev) {
+            currentDevice = dev;
+            document.querySelectorAll('.dev-btn').forEach(b => b.className = 'dev-btn px-3 py-1 rounded text-slate-400 hover:text-slate-200');
+            document.getElementById(`dev-btn-${dev}`).className = 'dev-btn px-3 py-1 rounded bg-amazon-orange text-slate-950 font-bold';
+            
+            const labels = {
+                RING: 'Ring Security Stream: Living Room',
+                FIRETV: 'Fire TV (Vega OS) Picture-in-Picture Alert Stream',
+                BEE: 'Bee Wearable AI Biometric Stream'
+            };
+            document.getElementById('canvas-node-label').innerText = labels[dev];
         }
 
-        function switchZone(zoneKey) {
-            currentZone = zoneKey;
-            document.querySelectorAll('.zone-btn').forEach(btn => {
-                btn.className = 'zone-btn px-3 py-1 rounded-lg text-xs font-semibold transition-all text-slate-400 hover:text-slate-200';
-            });
-            document.getElementById(`zone-btn-${zoneKey}`).className = 'zone-btn px-3 py-1 rounded-lg text-xs font-semibold transition-all bg-ring-blue text-slate-950 shadow';
-            document.getElementById('active-zone-label').innerText = zones[zoneKey].name;
-        }
+        function runWorkflow(type) {
+            const box = document.getElementById('ai-bounding-box');
+            const hazard = document.getElementById('bedrock-hazard');
+            const bar = document.getElementById('bedrock-bar');
+            const conf = document.getElementById('bedrock-conf');
+            const json = document.getElementById('bedrock-json');
+            const speech = document.getElementById('alexa-speech');
+            const hr = document.getElementById('bee-hr');
+            const stress = document.getElementById('bee-stress');
 
-        // Incident Orchestrator Engine
-        function triggerIncident(type) {
-            playAudioBeep();
-            const targetBox = document.getElementById('target-bounding-box');
-            const hazardLabel = document.getElementById('bedrock-hazard-type');
-            const confBar = document.getElementById('confidence-bar');
-            const confScore = document.getElementById('confidence-score');
-            const jsonOut = document.getElementById('bedrock-json-out');
-            const alexaSpeech = document.getElementById('alexa-speech-text');
-
-            const latency = Math.floor(Math.random() * 35) + 115;
-            document.getElementById('bedrock-latency').innerText = `${latency}ms`;
+            const latency = Math.floor(Math.random() * 30) + 110;
+            document.getElementById('bedrock-time').innerText = `${latency}ms`;
             updateChart(latency);
 
-            let resultData = {};
+            let res = {};
+            if (type === 'FALL') {
+                box.style.left = '30%'; box.style.top = '40%'; box.style.width = '35%'; box.style.height = '40%';
+                box.classList.remove('hidden');
+                hazard.innerText = 'FALL_RISK';
+                hazard.className = 'text-xs font-black text-red-400 font-mono';
+                bar.className = 'bg-red-500 h-full w-[98%] transition-all';
+                conf.innerText = '98.5%';
+                hr.innerText = '114 BPM';
+                stress.innerText = 'Elevated';
 
-            if (type === 'FALL_RISK') {
-                targetBox.style.left = '35%'; targetBox.style.top = '45%'; targetBox.style.width = '30%'; targetBox.style.height = '35%';
-                targetBox.classList.remove('hidden');
+                res = { track: 'Ring + Alexa+ MCP + Fire TV', hazard: 'FALL_RISK', confidence: 0.985, action: 'FIRETV_PIP_OVERLAY_TRIGGERED' };
+                speech.innerText = '"[Fire TV PiP Alert]: Fall detected in Living Room via Ring. Alexa+ initiating emergency check-in."';
+                speakVoice(speech.innerText);
 
-                hazardLabel.innerText = 'FALL_RISK';
-                hazardLabel.className = 'text-xs font-black text-red-400 font-mono tracking-wider';
-                confBar.className = 'bg-red-500 h-full transition-all duration-500 w-[97%]';
-                confScore.innerText = '97.2%';
+                logMcp('get_ring_snapshot', { deviceId: 'ring_cam_01' });
+                logMcp('fire_tv_display_pip', { alert: 'FALL_DETECTED' });
+                logMcp('trigger_emergency_chime', { level: 'CRITICAL' });
 
-                resultData = { hazardDetected: true, hazardType: 'FALL_RISK', confidence: 0.972, recommendedAction: 'DISPATCH_VOICE_CHECKIN_AND_ALARM' };
-                alexaSpeech.innerText = '"Grandma, a sudden fall motion was detected in the living room. Are you okay? Responding contacts in 15 seconds."';
-                speakVoice(alexaSpeech.innerText);
+            } else if (type === 'STOVE') {
+                box.style.left = '45%'; box.style.top = '20%'; box.style.width = '25%'; box.style.height = '35%';
+                box.classList.remove('hidden');
+                hazard.innerText = 'UNATTENDED_STOVE';
+                hazard.className = 'text-xs font-black text-orange-400 font-mono';
+                bar.className = 'bg-orange-500 h-full w-[93%] transition-all';
+                conf.innerText = '93.1%';
+                hr.innerText = '82 BPM';
+                stress.innerText = 'Normal';
 
-                logMcpToolCall('get_ring_snapshot', { deviceId: 'cam_living_room_01' });
-                logMcpToolCall('trigger_emergency_chime', { alertLevel: 'CRITICAL' });
+                res = { track: 'Ring + AWS Bedrock', hazard: 'UNATTENDED_STOVE', confidence: 0.931, action: 'NOTIFY_KITCHEN_SAFETY' };
+                speech.innerText = '"[Alexa+]: Kitchen burner active without occupant presence. Sending alert to Fire TV."';
+                speakVoice(speech.innerText);
 
-            } else if (type === 'UNATTENDED_STOVE') {
-                targetBox.style.left = '45%'; targetBox.style.top = '25%'; targetBox.style.width = '25%'; targetBox.style.height = '30%';
-                targetBox.classList.remove('hidden');
+                logMcp('get_ring_snapshot', { deviceId: 'ring_kitchen_02' });
+                logMcp('aws_bedrock_invoke_model', { model: 'claude-3-5-sonnet' });
 
-                hazardLabel.innerText = 'UNATTENDED_STOVE';
-                hazardLabel.className = 'text-xs font-black text-orange-400 font-mono tracking-wider';
-                confBar.className = 'bg-orange-500 h-full transition-all duration-500 w-[92%]';
-                confScore.innerText = '92.4%';
+            } else if (type === 'DOOR') {
+                box.style.left = '60%'; box.style.top = '10%'; box.style.width = '20%'; box.style.height = '70%';
+                box.classList.remove('hidden');
+                hazard.innerText = 'UNLOCKED_PERIMETER';
+                hazard.className = 'text-xs font-black text-yellow-400 font-mono';
+                bar.className = 'bg-yellow-500 h-full w-[90%] transition-all';
+                conf.innerText = '90.2%';
+                hr.innerText = '75 BPM';
+                stress.innerText = 'Normal';
 
-                resultData = { hazardDetected: true, hazardType: 'UNATTENDED_STOVE', confidence: 0.924, recommendedAction: 'WARN_KITCHEN_ACTIVE_THERMAL' };
-                alexaSpeech.innerText = '"Notice: Kitchen stove burner active without motion for 20 minutes. Please verify burner status."';
-                speakVoice(alexaSpeech.innerText);
+                res = { track: 'Ring API + Smart Lock', hazard: 'UNLOCKED_PERIMETER', confidence: 0.902, action: 'SECURE_DOOR' };
+                speech.innerText = '"[Ring API]: Front door unlatched. Would you like me to engage deadbolt encryption?"';
+                speakVoice(speech.innerText);
 
-                logMcpToolCall('get_ring_snapshot', { deviceId: 'cam_kitchen_02' });
-
-            } else if (type === 'UNLOCKED_PERIMETER') {
-                targetBox.style.left = '60%'; targetBox.style.top = '15%'; targetBox.style.width = '20%'; targetBox.style.height = '60%';
-                targetBox.classList.remove('hidden');
-
-                hazardLabel.innerText = 'UNLOCKED_PERIMETER';
-                hazardLabel.className = 'text-xs font-black text-yellow-400 font-mono tracking-wider';
-                confBar.className = 'bg-yellow-500 h-full transition-all duration-500 w-[89%]';
-                confScore.innerText = '89.1%';
-
-                resultData = { hazardDetected: true, hazardType: 'UNLOCKED_PERIMETER', confidence: 0.891, recommendedAction: 'PROMPT_SECURE_PERIMETER' };
-                alexaSpeech.innerText = '"Exterior door unlatched after sunset. Would you like me to secure the Ring Smart Lock?"';
-                speakVoice(alexaSpeech.innerText);
-
-                logMcpToolCall('unlock_door', { deviceId: 'lock_front_door', duration: 0 });
+                logMcp('ring_smart_lock_api', { state: 'UNLOCKED' });
 
             } else {
-                targetBox.classList.add('hidden');
-                hazardLabel.innerText = 'NONE';
-                hazardLabel.className = 'text-xs font-black text-emerald-400 font-mono tracking-wider';
-                confBar.className = 'bg-emerald-500 h-full transition-all duration-500 w-[10%]';
-                confScore.innerText = '99.4%';
+                box.classList.add('hidden');
+                hazard.innerText = 'NONE';
+                hazard.className = 'text-xs font-black text-emerald-400 font-mono';
+                bar.className = 'bg-emerald-500 h-full w-[10%] transition-all';
+                conf.innerText = '99.7%';
+                hr.innerText = '72 BPM';
+                stress.innerText = 'Normal';
 
-                resultData = { hazardDetected: false, hazardType: 'NONE', confidence: 0.994, recommendedAction: 'CONTINUE_AMBIENT_SWEEP' };
-                alexaSpeech.innerText = '"All household safety sweeps normal."';
+                res = { track: 'All Ecosystems', hazard: 'NONE', confidence: 0.997, action: 'NORMAL_SWEEP' };
+                speech.innerText = '"All Ring, Alexa+, Fire TV, and Bee wearable nodes operating normally."';
             }
 
-            jsonOut.innerText = JSON.stringify(resultData, null, 2);
-            lastIncidentReport = { type, timestamp: new Date().toISOString(), resultData };
+            json.innerText = JSON.stringify(res, null, 2);
+            lastReport = { type, timestamp: new Date().toISOString(), res };
         }
 
-        // Web Audio Synthesizer Beep
-        function playAudioBeep() {
-            try {
-                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(880, audioCtx.currentTime);
-                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.1);
-            } catch (e) {}
+        function logMcp(tool, args) {
+            const logs = document.getElementById('mcp-logs');
+            const d = document.createElement('div');
+            d.className = 'text-purple-300 border-l-2 border-purple-500 pl-2 py-0.5 mt-1';
+            d.innerHTML = `<span class="text-purple-400 font-bold">[MCP 2025-11-25]</span> <span class="text-yellow-300">${tool}</span> ${JSON.stringify(args)}`;
+            logs.appendChild(d);
+            logs.scrollTop = logs.scrollHeight;
         }
 
-        // MCP Logger Helper
-        function logMcpToolCall(toolName, params) {
-            const container = document.getElementById('mcp-terminal-logs');
-            const div = document.createElement('div');
-            div.className = 'text-purple-300 border-l-2 border-purple-500 pl-2 py-0.5 mt-1';
-            div.innerHTML = `<span class="text-purple-400 font-bold">[MCP CALL]</span> <span class="text-yellow-300">${toolName}</span> ${JSON.stringify(params)}`;
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
-        }
-
-        // Web Speech Synthesizer
         function speakVoice(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.rate = 1.0;
-                window.speechSynthesis.speak(utterance);
+                window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
             }
         }
 
-        // PDF Audit Report Exporter
         function exportPDFReport() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             doc.setFont('courier', 'bold');
             doc.setFontSize(16);
-            doc.text('GUARDIANECHO - INCIDENT AUDIT REPORT', 15, 20);
-
+            doc.text('GUARDIANECHO - HACKATHON SUBMISSION AUDIT', 15, 20);
             doc.setFontSize(10);
             doc.setFont('courier', 'normal');
-            doc.text(`Generated: ${new Date().toLocaleString()}`, 15, 30);
-            doc.text(`Zone Node: ${zones[currentZone].name}`, 15, 36);
-            doc.text(`Pipeline Latency Benchmark: 132ms`, 15, 42);
-
-            doc.text('----------------------------------------------------', 15, 50);
-            doc.text('TELEMETRY SUMMARY:', 15, 58);
-            
-            const details = lastIncidentReport ? JSON.stringify(lastIncidentReport, null, 2) : 'Zero active hazards recorded during current session.';
-            const lines = doc.splitTextToSize(details, 180);
-            doc.text(lines, 15, 66);
-
-            doc.save(`GuardianEcho-Audit-${Date.now()}.pdf`);
+            doc.text(`Tracks: Fire TV, Alexa+, Ring, Bee + AWS Builder`, 15, 30);
+            doc.text(`Generated: ${new Date().toLocaleString()}`, 15, 36);
+            doc.text('----------------------------------------------------', 15, 42);
+            const summary = lastReport ? JSON.stringify(lastReport, null, 2) : 'No incidents recorded yet.';
+            doc.text(doc.splitTextToSize(summary, 180), 15, 50);
+            doc.save(`GuardianEcho-AmazonHackathon-Audit.pdf`);
         }
 
-        // Latency Chart
         function initChart() {
-            const ctxChart = document.getElementById('latency-chart').getContext('2d');
-            latencyChart = new Chart(ctxChart, {
+            const ctx = document.getElementById('latency-chart').getContext('2d');
+            latencyChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+                    labels: ['1','2','3','4','5','6','7','8','9','10'],
                     datasets: [{
-                        data: [130, 142, 125, 138, 145, 122, 140, 135, 128, 142],
-                        borderColor: '#00A3DA',
-                        backgroundColor: 'rgba(0, 163, 218, 0.1)',
+                        data: [125, 134, 118, 130, 142, 120, 132, 128, 124, 135],
+                        borderColor: '#FF9900',
+                        backgroundColor: 'rgba(255, 153, 0, 0.1)',
                         fill: true,
                         tension: 0.4
                     }]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
+                    responsive: true, maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
-                    scales: { x: { display: false }, y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#64748B', font: { size: 9 } } } }
+                    scales: { x: { display: false }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#64748B', font: { size: 9 } } } }
                 }
             });
         }
 
-        function updateChart(newLatency) {
+        function updateChart(val) {
             if (latencyChart) {
                 latencyChart.data.datasets[0].data.shift();
-                latencyChart.data.datasets[0].data.push(newLatency);
+                latencyChart.data.datasets[0].data.push(val);
                 latencyChart.update();
             }
         }
 
-        window.onload = function() {
-            initChart();
-        };
+        window.onload = initChart;
     </script>
 </body>
 </html>
