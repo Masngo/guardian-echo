@@ -1,13 +1,11 @@
 {
   "name": "@guardian-echo/aws-vision-core",
-  "version": "0.1.0",
-  "type": "module",
-  "description": "Bedrock multimodal safety analysis pipeline",
-  "license": "MIT",
+  "version": "1.0.0",
+  "private": true,
+  "main": "src/index.ts",
   "dependencies": {
-    "@aws-sdk/client-bedrock-runtime": "^3.1152.0",
-    "@aws-sdk/client-eventbridge": "^3.1152.0",
-    "dotenv": "^18.0.8",
-    "zod": "^3.25.76"
-  }
+    "@aws-sdk/client-bedrock-runtime": "^3.0.0",
+    "@aws-sdk/client-eventbridge": "^3.1152.0"
+  },
+  "type": "module"
 }
