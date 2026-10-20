@@ -3,6 +3,7 @@
 > **Autonomous Ambient Eldercare & Cross-Device Incident Orchestrator**  
 > *Submitted to the Amazon Developer Hackathon: Build, Ship, Shape (2026)*
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://guardian-echo-z86htguujubwatv9gpxtbv.streamlit.app)
 ![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)
 ![Node.js](https://img.shields.io/badge/Node.js-v20%2B-blue.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-v5.0-blue.svg)
@@ -11,10 +12,20 @@
 
 ---
 
+## 🔗 Quick Links & Live Demos
+* 🌐 **Live Streamlit App:** Click the badge above or visit [https://guardian-echo-z86htguujubwatv9gpxtbv.streamlit.app](https://guardian-echo-z86htguujubwatv9gpxtbv.streamlit.app)
+* 📄 **Executive Brief & Judge's Summary:** [Download / View GuardianEcho Executive Brief PDF](./guardian_echo_executive_brief.pdf)
+* 📂 **GitHub Repository:** [https://github.com/Masngo/guardian-echo](https://github.com/Masngo/guardian-echo)
+* 🎥 **3-Minute Demo Video:** [YouTube / Vimeo Demo Link] *(See Devpost Submission)*
+* 🏛️ **System Architecture Spec:** [Architecture.md](./ARCHITECTURE.md)
+* 📝 **Developer Friction Logs:** [Friction_Log.md](./FRICTION_LOG.md)
+
+---
+
 ## 📖 How It Works
 
 GuardianEcho bridges physical security hardware, multimodal artificial intelligence, and living-room ambient displays into a proactive safety shield for elderly individuals living independently.
-[200~┌─────────────────────────────────────────────────────────────────────────────┐
+┌─────────────────────────────────────────────────────────────────────────────┐
 │                            GUARDIANECHO PIPELINE                            │
 └─────────────────────────────────────────────────────────────────────────────┘
 │
@@ -64,7 +75,7 @@ GuardianEcho bridges physical security hardware, multimodal artificial intellige
 - **AWS Builder Challenge:** AWS Bedrock Runtime SDK (Claude 3.5 Sonnet Multimodal Vision)
 - **Alexa+ Agent Track:** Open-Source Model Context Protocol Server (`packages/ring-mcp-server`)
 - **Fire TV & Bee Integration:** Fire TV Picture-in-Picture notification bridge & Wearable biometric data streams
-- **Command Dashboard:** Web App (`apps/dashboard/public/index.html`) featuring multi-camera HUD canvas, telemetry logs, and jsPDF audit report exports.
+- **Command Dashboard:** Web App (`apps/dashboard/public/index.html`) & Streamlit wrapper (`app.py`) featuring multi-camera HUD canvas, telemetry logs, and jsPDF audit report exports.
 
 ---
 
@@ -76,7 +87,7 @@ GuardianEcho bridges physical security hardware, multimodal artificial intellige
 
 ### 1. Installation
 ```bash
-git clone [https.github.com/Masngo/guardian-echo.git](https://https.github.com/Masngo/guardian-echo.git)
+git clone [https://github.com/Masngo/guardian-echo.git](https://github.com/Masngo/guardian-echo.git)
 cd guardian-echo
 npm install
 2. Run the Ring MCP Server
@@ -86,7 +97,7 @@ npm run start:mcp
 In a separate terminal window:
 
 Bash
-npx serve apps/dashboard/public
+npx serve apps/dashboard/public -l 3000
 Navigate to http://localhost:3000 in your web browser.
 
 📜 License
