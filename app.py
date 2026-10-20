@@ -18,3 +18,24 @@ try:
     components.html(html_code, height=900, scrolling=True)
 except FileNotFoundError:
     st.error(f"Error: Could not find dashboard file at {html_file_path}. Please ensure your repo structure is up to date.")
+
+# --- AUDIO / VOICE UNLOCK TOGGLE ---
+st.sidebar.markdown("### 🔊 Audio & Voice Control")
+if "audio_unlocked" not in st.session_state:
+    st.session_state.audio_unlocked = False
+
+if not st.session_state.audio_unlocked:
+    if st.sidebar.button("🔔 Enable Voice & Audio Alerts"):
+        st.session_state.audio_unlocked = True
+        st.sidebar.success("Voice synthesis enabled!")
+        st.components.v1.html(
+            """
+            <script>
+                const utterance = new SpeechSynthesisUtterance("Audio unlocked for Guardian Echo.");
+                window.speechSynthesis.speak(utterance);
+            </script>
+            """,
+            height=0,
+        )
+else:
+    st.sidebar.markdown("✅ *Voice Synced & Active*")
